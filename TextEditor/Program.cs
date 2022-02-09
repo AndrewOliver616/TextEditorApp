@@ -7,7 +7,7 @@ namespace TextEditor
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Menu();
         }
 
         static void Menu() 
@@ -46,8 +46,36 @@ namespace TextEditor
             Menu();
         }
 
-        static void Edit() { }
+        static void Edit() 
+        {
+            Console.Clear();
+            Console.WriteLine("Digit your text (Enter ESC for exit)");
+            Console.WriteLine("--------------------------");
+            string text = "";
 
-        static void Save() { }
+            do
+            {
+                text += Console.ReadLine();
+                text += Environment.NewLine;
+            } while (Console.ReadKey().Key != ConsoleKey.Escape);
+
+            Save(text);
+        }
+
+        static void Save(string text) 
+        {
+            Console.Clear();
+            Console.WriteLine("which path to save?");
+            var path = Console.ReadLine();
+
+            using (var file = new StreamWriter(path))
+            {
+                file.Write(text);
+            }
+
+            Console.WriteLine($"File {path} has been saved");
+            Console.ReadLine();
+            Menu();
+        }
     }
 }
